@@ -1,17 +1,21 @@
-const mongoose = require('mongoose');
-const host = process.env.DB_HOST || '127.0.0.1'
-const dbURI = 'mongodb://${host}/travlr'; 
-const readLine = require('readline');
+const mongoose = require("mongoose");
+const host = process.env.DB_HOST || "127.0.0.1";
+const dbURI = `mongodb://${host}/travlr`;
+const readLine = require("readline");
 
 //avoid 'current Server Discovery and Monitoring engine is deprecated'
 mongoose.set('useUnifiedTopology', true);
 
 const connect = () => {
-    setTimeout(() => mongoose.connect(dbURI, {
+  setTimeout(
+    () =>
+      mongoose.connect(dbURI, {
         useNewUrlParser: true,
-        useCreateIndex: true
-    }), 1000);
-}
+        useCreateIndex: true,
+      }),
+    1000
+  );
+};
 
 mongoose.connection.on('connected', () => {
     console.log(`connected`);
@@ -67,4 +71,4 @@ process.once('SIGUSR2', () => {
   connect();
   
   //bring in the Mongoose schema
-  require('./travlr');
+  require("./models/travlr");
